@@ -2,12 +2,11 @@
   "name": "f1-pwa",
   "version": "1.0.0",
   "main": "server.js",
-  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "express": "^4.21.1"
+    "express": "^4.21.2",
+    "sqlite3": "^5.1.7"
   }
 }
- 
