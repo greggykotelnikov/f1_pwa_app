@@ -1,46 +1,68 @@
-/* Body & Background */
+
 body {
-    margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: url('../images/f1_background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    color: #eee;
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: url('../images/f1_background.jpg') no-repeat center center fixed;
+  background-size: cover;
+  color: #eee;
+  position: relative;
 }
 
-/* Header */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* adjust opacity here */
+  z-index: -1; /* keeps it behind content */
+}
 header {
     text-align: center;
-    background: #c30000;
-    padding: 25px;
-    font-size: 28px;
-    color: white;
+    background: linear-gradient(135deg, #c30000, #750000);
+    color: #fff;
+    font-size: 20px;
+    font-weight: 600;
     letter-spacing: 1px;
+    padding: 10px 15px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* Main Wrapper */
+header:hover {
+    transform: translateY(-3px); 
+    box-shadow: 0 12px 25px rgba(0,0,0,0.5); 
+}
+
+
 main {
     padding: 20px;
     max-width: 1200px;
     margin: 0 auto;
 }
 
-/* Dashboard Cards */
+
 .dashboard-card {
     background: rgba(26, 26, 26, 0.9);
     padding: 20px;
     margin-bottom: 20px;
     border-left: 5px solid #c30000;
     border-radius: 8px;
-    text-align: left;
+    text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.3);
     transition: transform 0.2s;
+}
+
+.dashboard-card:first-of-type {
+    margin-top: 20px; 
 }
 
 .dashboard-card:hover {
     transform: translateY(-10px);
 }
 
-/* Card Images */
+
 .card-image {
     width: 100%;
     max-width: 300px;
@@ -50,7 +72,7 @@ main {
     border: 1px solid #555;
 }
 
-/* Standings Tables */
+
 .standings-table {
     width: 100%;
     border-collapse: collapse;
@@ -58,7 +80,7 @@ main {
     font-weight: 500;
 }
 
-/* Table Headers */
+
 .standings-table thead th {
     background: linear-gradient(90deg, #c30000, #ff0000);
     color: #fff;
@@ -69,7 +91,7 @@ main {
     text-transform: uppercase;
 }
 
-/* Table Body Rows */
+
 .standings-table tbody tr {
     background: rgba(255,255,255,0.05);
     transition: background 0.3s;
@@ -83,27 +105,35 @@ main {
     background: rgba(255,255,255,0.2);
 }
 
-/* Table Cells */
+
 .standings-table td {
     padding: 10px 12px;
     font-size: 15px;
 }
 
-/* Right-align points */
+
 .standings-table td.points {
     text-align: left;
     font-weight: bold;
     color: #ffd700;
 }
 
-/* Position Column */
+
+
+.standings-table thead th:first-child {
+    text-align: center;   
+    width: 55px;          
+}
+
+
 .standings-table td:first-child {
     width: 40px;
     font-weight: bold;
     color: #c30000;
+    text-align: center;
 }
 
-/* Driver Stats Section */
+
 #driver-stats {
     font-size: 16px;
     line-height: 1.5;
@@ -124,3 +154,142 @@ a {
   background: none;
   border-radius: 8px;
 }
+
+
+
+#race-banner {
+    position: fixed;        
+    top: 20px;              
+    left: -100%;           
+    width: auto;
+    background: linear-gradient(90deg, #ff0000, #c30000);
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 1000;          
+    border-radius: 5px;
+    white-space: nowrap;    
+    transition: left 1s ease-in-out; 
+    letter-spacing: 1px;
+}
+
+
+#race-banner #countdown {
+    margin-left: 10px;
+    font-size: 20px;
+    color: #ffd700;
+}
+
+.button{
+    padding:4px;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    width: 150px;
+    height: 60px;
+    text-align: center;
+    font-size: 18px;
+    margin-bottom: 2px;
+    background-color: #fddcdc;
+}
+
+.button:hover {
+    background-color: #c30000;
+    transform: translateY(7px);
+    transform: translateX(4px);
+}
+
+.carousel {
+display: flex;
+gap: 1em;
+margin: 3em auto;
+width: 100%;
+overflow-x: auto;
+scroll-behavior: smooth;
+scroll-snap-type: x mandatory;
+anchor-name: --carousel;
+}
+.carousel::-webkit-scrollbar {
+display: none;
+}
+
+.carousel::scroll-button(right), .carousel::scroll-button(left) {
+  content: '➜';
+  border: none;
+  background-color: var(--brand-color);
+  font-family: Consolas;
+  font-size: 3rem;
+  color: white;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  padding-bottom: .1em;
+  cursor: pointer;
+  position: fixed;
+  position-anchor: --carousel;
+  position-area: right center;
+  translate: -50%;
+}
+
+.carousel::scroll-button(left) {
+  content: '⬅︎';
+  position-area: left center;
+  translate: 50%;
+}
+
+.carousel::scroll-button(right):disabled, .carousel::scroll-button(left):disabled {
+    opacity: 0.5;
+    cursor: auto;
+}
+
+
+.card {
+  flex: 0 0 24em;
+  position: relative;
+  min-width: 280px;
+  height: 180px;
+  border-radius: 15px;
+  overflow: hidden; 
+  cursor: pointer;
+  scroll-snap-align: start;
+}
+
+.card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;   
+  display: block;
+  border-radius: 0;    
+  padding: 0;         
+}
+
+
+
+.card:hover img {
+filter: brightness(0.5);
+}
+
+
+.text-overlay {
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+color: white;
+font-size: 1.0rem;
+padding: 10px;
+opacity: 0;
+transition: 0.3s ease;
+white-space: normal;
+}
+
+
+.card:hover .text-overlay {
+opacity: 1; }
