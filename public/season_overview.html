@@ -5,6 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>2025 F1 Season Overview</title>
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Override styles for blurred dark background -->
+  <style>
+    body {
+      position: relative;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: url('../images/f1_background.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #eee;
+    }
+
+    /* Dark blur overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6); /* dark shade overlay */
+      backdrop-filter: blur(8px);   /* blur effect */
+      z-index: -1;                  /* keep behind content */
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -15,21 +40,37 @@
     <section>
       <h2>Season Highlights</h2>
       <ul>
-        <li>Record-breaking wins by McLaren</li>
-        <li>New circuits added in Asia</li>
-        <li>Major rule changes for qualifying</li>
+        <li><strong>Record-breaking wins by McLaren:</strong> Oscar Piastri and Lando Norris delivered multiple victories, including dominant performances in the Qatar Sprint and Australian Grand Prix, keeping McLaren in contention for the Constructors' Championship.</li>
+        <li><strong>New circuits added in Asia:</strong> The 2025 calendar expanded with fresh venues in Asia, enhancing global reach and fan engagement, while maintaining classics like Suzuka and Singapore.</li>
+        <li><strong>Major rule changes for qualifying:</strong> FIA introduced revised qualifying formats to increase unpredictability, with stricter parc fermé rules and plank wear inspections leading to high-profile disqualifications, notably affecting Norris and Piastri in Las Vegas.</li>
+        <li><strong>Las Vegas drama:</strong> Max Verstappen claimed victory under the neon lights, while McLaren's double disqualification reshaped the title fight.</li>
+        <li><strong>Australian Grand Prix opener:</strong> Melbourne returned as the season opener for the first time since 2019, marking a symbolic reset and welcoming six rookies to the grid.</li>
+        <li><strong>Ferrari resurgence:</strong> Lewis Hamilton's debut season with Ferrari brought renewed energy to the Scuderia, with podium finishes sparking optimism for a new era.</li>
+        <li><strong>Qatar showdown:</strong> Verstappen's decisive win at Lusail set up a thrilling finale, while Piastri's sprint victory showcased McLaren's pace.</li>
+        <li><strong>Technical innovations:</strong> Teams adapted to evolving aero regulations, with Red Bull and Mercedes introducing mid-season upgrades that shifted competitive balance.</li>
+        <li><strong>Global fan engagement:</strong> Enhanced digital coverage and interactive race experiences brought millions closer to the action, with record streaming numbers across platforms.</li>
       </ul>
+
+      <h2>Championship Standings</h2>
+      <p>
+        Lando Norris (<em>McLaren</em>) leads the championship with <strong>408 points</strong>, closely followed by 
+        Max Verstappen (<em>Red Bull</em>) on <strong>396 points</strong>, and Oscar Piastri (<em>McLaren</em>) on <strong>392 points</strong>.
+      </p>
+      <p>
+        Norris, Piastri, and Verstappen each have <strong>7 wins</strong> this season, making it one of the most competitive title fights in years.
+        Norris tops the podium count with <strong>17 podiums</strong>, while Piastri has <strong>15</strong> and Verstappen <strong>14</strong>.
+      </p>
     </section>
-    <section>
-      <h2>Race Calendar</h2>
-      <p>Interactive calendar or list of races with dates and locations.</p>
-    </section>
+
+    <h2>Race Calendar</h2>
+    <p>Interactive calendar or list of races with dates and locations.</p>
+
     <div class="box">
       <iframe width="560" height="315" src="https://www.youtube.com/embed/Q01_uOhXACE?si=QeBQ5gT1564uwKfz&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/eK16aiwXIGc?si=75qduiqJOqz2NAu2&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
       <iframe width="560" height="315" src="https://www.youtube.com/embed/mdnF9R-Bzpg?si=VqJiR1mo6uviEVHt&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/LNglLc2YKRo?si=ewsI4F3dOvAr6hQo&amp;controls=0" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
-
   </main>
 </body>
 </html>
