@@ -1,5 +1,5 @@
-﻿-- Season table
-CREATE TABLE season(
+-- Season table
+CREATE TABLE IF NOT EXISTS season(
     id INTEGER PRIMARY KEY,
     year INTEGER,
     races INTEGER,
@@ -7,7 +7,7 @@ CREATE TABLE season(
 );
 
 -- Driver standings
-CREATE TABLE driver_standings(
+CREATE TABLE IF NOT EXISTS driver_standings(
     id INTEGER PRIMARY KEY,
     season_id INTEGER,
     driver TEXT,
@@ -17,7 +17,7 @@ CREATE TABLE driver_standings(
 );
 
 -- Team standings
-CREATE TABLE team_standings(
+CREATE TABLE IF NOT EXISTS team_standings(
     id INTEGER PRIMARY KEY,
     season_id INTEGER,
     team TEXT,
@@ -27,7 +27,7 @@ CREATE TABLE team_standings(
 );
 
 -- Driver stats
-CREATE TABLE driver_stats(
+CREATE TABLE IF NOT EXISTS driver_stats(
     id INTEGER PRIMARY KEY,
     season_id INTEGER,
     driver TEXT,
@@ -37,4 +37,21 @@ CREATE TABLE driver_stats(
     poles INTEGER,
     photo TEXT,
     FOREIGN KEY(season_id) REFERENCES season(id)
+);
+
+-- Posts table for F1 PWA
+CREATE TABLE IF NOT EXISTS posts(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_email TEXT NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Users table
+CREATE TABLE IF NOT EXISTS users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username TEXT UNIQUE,
+    password TEXT,
+    isAdmin INTEGER DEFAULT 0,
+    fantasyTeam TEXT DEFAULT '{}'
 );

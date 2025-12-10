@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 Dashboard - Account</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 50px 20px;
+    }
+
+    .container {
+      background: linear-gradient(135deg, #1a1a1a, #222);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,0,0,0.5);
+      width: 100%;
+      max-width: 450px;
+    }
+
+    h1 { text-align: center; color: #ff0000; margin-bottom: 30px; font-family: 'Arial Black', sans-serif; letter-spacing: 2px; }
+    h2 { color: #fff; border-bottom: 2px solid #ff0000; padding-bottom: 5px; margin-bottom: 15px; font-size: 1.2rem; }
+    form { display: flex; flex-direction: column; margin-bottom: 30px; }
+    input[type="text"], input[type="password"], input[type="email"]{ padding: 12px; margin: 10px 0; border-radius: 8px; border: none; outline: none; font-size: 1rem; }
+    button { background: #ff0000; color: #fff; padding: 12px; margin-top: 15px; font-size: 1rem; font-weight: bold; border: none; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+    button:hover { background: #ff4d4d; }
+    @media (max-width: 500px) { body { padding: 20px; } .container { padding: 25px; } }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>F1 Dashboard</h1>
+
+    <h2>Signup</h2>
+    <form id="signupForm">
+      <input type="text" placeholder="Username" required>
+      <input type="password" placeholder="Password" required>
+      <input type="email" placeholder="Email" required>
+      <button type="submit">Sign Up</button>
+    </form>
+
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" placeholder="Username" required>
+      <input type="password" placeholder="Password" required>
+      <input type="email" placeholder="Email" required>
+      <button type="submit">Login</button>
+    </form>
+    
+  </div>
+
+  <script>
+    document.getElementById('signupForm').addEventListener('submit', e => {
+      e.preventDefault();
+      window.location.href = '/index.html';
+    });
+
+    document.getElementById('loginForm').addEventListener('submit', e => {
+      e.preventDefault();
+      window.location.href = '/index.html';
+    });
+  </script>
+
+</body>
+</html>
