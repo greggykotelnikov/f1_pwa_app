@@ -54,4 +54,4 @@ CREATE TABLE IF NOT EXISTS users (
     password TEXT,
     isAdmin INTEGER DEFAULT 0,
     fantasyTeam TEXT DEFAULT '{}'
-);
+);  

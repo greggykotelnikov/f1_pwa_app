@@ -28,72 +28,74 @@ app.use(session({
 }));
 
 
-// ---------- CAPTCHA VERIFY FUNCTION ----------
-async function verifyCaptcha(token) {
-    const secretKey = process.env.RECAPTCHA_SECRET;
 
-    const res = await fetch(`https://www.google.com/recaptcha/api/siteverify`, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `secret=${secretKey}&response=${token}`
-    });
 
-    const data = await res.json();
-    return data.success; // true / false
-}
 
 
 // ---------- SIGNUP ----------
 app.post("/api/signup", async (req, res) => {
-    const { username, password, captcha } = req.body;
+    const { username, password } = req.body;
 
-    if (!username || !password || !captcha)
-        return res.status(400).json({ error: "Missing fields" });
+    if (!username || !password)
+        return res.status(400).send("Missing fields");
 
-    if (!await verifyCaptcha(captcha))
-        return res.status(400).json({ error: "Captcha failed" });
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+        db.run(
+            "INSERT INTO users (username, password) VALUES (?, ?)",
+            [username, hashedPassword],
+            function(err) {
+                if (err) {
+                    if (err.code === "SQLITE_CONSTRAINT") {
+                        return res.status(400).send("User already exists");
+                    }
+                    return res.status(500).send("Database error");
+                }
 
-    db.run(
-        "INSERT INTO users (username, password) VALUES (?, ?)",
-        [username, hashedPassword],
-        function(err) {
-            if (err)
-                return res.status(400).json({ error: "User already exists" });
-
-            req.session.userId = this.lastID;
-            res.json({ message: "Signup successful" });
-        }
-    );
+                req.session.userId = this.lastID;
+                res.redirect("/index.html");   // <-- redirect instead of JSON
+            }
+        );
+    } catch (e) {
+        res.status(500).send("Server error");
+    }
 });
-
 
 // ---------- LOGIN ----------
 app.post("/api/login", async (req, res) => {
-    const { username, password, captcha } = req.body;
+    const { username, password } = req.body;
 
-    if (!username || !password || !captcha)
-        return res.status(400).json({ error: "Missing fields" });
+    if (!username || !password)
+        return res.status(400).send("Missing fields");
 
-    if (!await verifyCaptcha(captcha))
-        return res.status(400).json({ error: "Captcha failed" });
+    try {
+        db.get("SELECT * FROM users WHERE username = ?", [username], async (err, user) => {
+            if (err) return res.status(500).send("Database error");
+            if (!user) return res.status(400).send("Invalid credentials");
 
-    db.get("SELECT * FROM users WHERE username = ?", [username], async (err, user) => {
-        if (err || !user)
-            return res.status(400).json({ error: "Invalid credentials" });
+            const match = await bcrypt.compare(password, user.password);
 
-        const match = await bcrypt.compare(password, user.password);
-
-        if (match) {
-            req.session.userId = user.id;
-            res.json({ message: "Login successful", isAdmin: user.isAdmin });
-        } else {
-            res.status(400).json({ error: "Invalid credentials" });
-        }
-    });
+            if (match) {
+                req.session.userId = user.id;
+                res.redirect("/index.html");   // <-- redirect instead of JSON
+            } else {
+                res.status(400).send("Invalid credentials");
+            }
+        });
+    } catch (e) {
+        res.status(500).send("Server error");
+    }
 });
 
+
+// ---------- LOGOUT ----------
+app.post("/api/logout", (req, res) => {
+    req.session.destroy(err => {
+        if (err) return res.status(500).json({ error: "Logout failed" });
+        res.json({ message: "Logged out" });
+    });
+});
 
 // ---------- GET CURRENT USER ----------
 app.get("/api/me", (req, res) => {
@@ -203,6 +205,6 @@ app.post("/api/posts", (req, res) => {
 
 
 // ---------- START SERVER ----------
-app.listen(8080, () =>
-    console.log("Server running on http://localhost:8080")
+app.listen(5000, "0.0.0.0", () =>
+    console.log("Server running on http://0.0.0.0:5000")
 );

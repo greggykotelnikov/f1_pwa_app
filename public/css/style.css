@@ -192,14 +192,21 @@ a {
     text-align: center;
     font-size: 18px;
     margin-bottom: 2px;
-    background-color: #fddcdc;
+    background-color: #be0000;
 }
 
 .button:hover {
-    background-color: #c30000;
+    background-color: #7e0000;
     transform: translateY(7px);
     transform: translateX(4px);
 }
+
+.button-container {
+    display: flex;
+    gap: 10px; 
+    align-items: center; 
+    justify-content: center;     
+    }
 
 .carousel {
 display: flex;
@@ -293,3 +300,167 @@ white-space: normal;
 
 .card:hover .text-overlay {
 opacity: 1; }
+
+textarea {
+  display: block; 
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.profile-container {
+  position: relative;
+}
+
+.profile-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: background 0.3s;
+}
+
+.profile-icon:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+#username-display {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #1a1a1a;
+  border-radius: 8px;
+  min-width: 180px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.profile-dropdown.show {
+  display: block;
+}
+
+.profile-dropdown a, .profile-dropdown p {
+  display: block;
+  padding: 12px 16px;
+  color: #fff;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.profile-dropdown a:hover {
+  background: #c30000;
+}
+
+.profile-dropdown p {
+  border-bottom: 1px solid #333;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: #1a1a1a;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 400px;
+  border-left: 5px solid #c30000;
+  position: relative;
+}
+
+.modal-content h2, .modal-content h3 {
+  color: #c30000;
+  margin-bottom: 15px;
+}
+
+.modal-content textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  min-height: 80px;
+  margin-bottom: 15px;
+}
+
+.modal-content button {
+  background: #c30000;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.modal-content button:hover {
+  background: #ff0000;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 28px;
+  cursor: pointer;
+  color: #888;
+}
+
+.close-btn:hover {
+  color: #fff;
+}
+
+.search-sort-controls {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.search-sort-controls input {
+  flex: 1;
+  min-width: 150px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+}
+
+.search-sort-controls select {
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  font-size: 14px;
+  background: #fff;
+  cursor: pointer;
+}
