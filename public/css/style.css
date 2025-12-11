@@ -158,8 +158,11 @@ main {
     padding-left: 0;
 }
 
-.standings-table td:nth-child(2),
-.standings-table td:nth-child(3) {
+.standings-table td:nth-child(2) {
+    text-align: left;
+}
+
+#driver-table td:nth-child(3) {
     text-align: left;
 }
 

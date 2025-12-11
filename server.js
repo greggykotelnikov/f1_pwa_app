@@ -16,6 +16,14 @@ const app = express();
 // Connect to SQLite database
 const db = new sqlite3.Database("./.database/f1data.db");
 
+// Initialize posts table if it doesn't exist
+db.run(`CREATE TABLE IF NOT EXISTS posts (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_email TEXT NOT NULL,
+    content TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)`);
+
 // Middlewares for JSON parsing + static files
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, "public")));
