@@ -65,7 +65,7 @@ main {
 
 .card-image {
     width: 100%;
-    max-width: 300px;
+    max-width: 500px;
     display: block;
     margin: 0 auto 15px auto;
     border-radius: 5px;
@@ -113,9 +113,13 @@ main {
 
 
 .standings-table td.points {
-    text-align: left;
+    text-align: center;
     font-weight: bold;
     color: #ffd700;
+}
+
+.standings-table thead th:last-child {
+    text-align: center;
 }
 
 
