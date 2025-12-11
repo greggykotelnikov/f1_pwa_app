@@ -154,8 +154,8 @@ main {
     padding-left: 0;
 }
 
-.standings-table td.driver-name,
-.standings-table td.team-name {
+.standings-table td:nth-child(2),
+.standings-table td:nth-child(3) {
     text-align: left;
 }
 
