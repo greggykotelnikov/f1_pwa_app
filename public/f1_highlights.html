@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>F1 Highlights</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .highlights-carousel {
+      position: relative;
+      max-width: 800px;
+      margin: 30px auto;
+      overflow: hidden;
+      border-radius: 15px;
+    }
+    
+    .carousel-container {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+    
+    .carousel-slide {
+      min-width: 100%;
+      position: relative;
+    }
+    
+    .carousel-slide img {
+      width: 100%;
+      height: 450px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    .carousel-slide .slide-text {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(0,0,0,0.9));
+      color: white;
+      padding: 40px 20px 20px;
+      font-size: 1.2rem;
+      text-align: center;
+    }
+    
+    .carousel-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(195, 0, 0, 0.8);
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      font-size: 24px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+    
+    .carousel-btn:hover {
+      background: #ff0000;
+    }
+    
+    .carousel-btn.prev {
+      left: 10px;
+    }
+    
+    .carousel-btn.next {
+      right: 10px;
+    }
+    
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    
+    .dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .dot.active {
+      background: #c30000;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>F1 Highlights</h1>
+    <a href="index.html">← Back to Dashboard</a>
+  </header>
+  <main>
+    <section class="dashboard-card">
+      <h2>Formula 1 Fun Facts</h2>
+      <p>Swipe through amazing F1 moments and facts!</p>
+      
+      <div class="highlights-carousel">
+        <button class="carousel-btn prev" onclick="prevSlide()">❮</button>
+        <div class="carousel-container" id="carousel-container">
+          <div class="carousel-slide">
+            <img src="images/8hcnd76a7f3g1.jpeg" alt="F1 Car">
+            <div class="slide-text">Formula 1: The fastest racing series in the world.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/f36r6ao7476g1.jpeg" alt="F1 Car">
+            <div class="slide-text">Drivers experience forces up to 6G in corners.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/images.jpg" alt="F1 Car">
+            <div class="slide-text">Teams spend hundreds of millions perfecting performance.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/isujld0e6ixf1.jpeg" alt="F1 Car">
+            <div class="slide-text">Monaco GP: the most iconic street race.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/jamyvoo3g73g1.png" alt="F1 Car">
+            <div class="slide-text">Pit stops can be as fast as 1.8 seconds.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/jx0oxox47f3g1.jpeg" alt="F1 Car">
+            <div class="slide-text">Aerodynamics determines nearly all lap-time advantage.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/SI202412010400-scaled.jpg" alt="F1 Car">
+            <div class="slide-text">DRS gives drivers extra top speed to overtake.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/st7rd80rse3g1.jpeg" alt="F1 Car">
+            <div class="slide-text">Engines produce around 1000 horsepower.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/sz1ocb5cse3g1.jpeg" alt="F1 Car">
+            <div class="slide-text">Each F1 weekend consists of practice, qualifying, and the race.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/uk27ls2ilw2g1.jpeg" alt="F1 Car">
+            <div class="slide-text">Lewis Hamilton holds the record for most wins.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/vjvdju997m4g1.jpeg" alt="F1 Car">
+            <div class="slide-text">Max Verstappen dominates the modern era.</div>
+          </div>
+          <div class="carousel-slide">
+            <img src="images/xqqsvg0d290g1.jpeg" alt="F1 Car">
+            <div class="slide-text">The Constructor's Championship rewards the best team.</div>
+          </div>
+        </div>
+        <button class="carousel-btn next" onclick="nextSlide()">❯</button>
+      </div>
+      
+      <div class="carousel-dots" id="carousel-dots"></div>
+    </section>
+  </main>
+
+  <script>
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.carousel-slide');
+    const totalSlides = slides.length;
+    const container = document.getElementById('carousel-container');
+    const dotsContainer = document.getElementById('carousel-dots');
+    
+    // Create dots
+    for (let i = 0; i < totalSlides; i++) {
+      const dot = document.createElement('span');
+      dot.className = 'dot' + (i === 0 ? ' active' : '');
+      dot.onclick = () => goToSlide(i);
+      dotsContainer.appendChild(dot);
+    }
+    
+    function updateCarousel() {
+      container.style.transform = `translateX(-${currentSlide * 100}%)`;
+      document.querySelectorAll('.dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentSlide);
+      });
+    }
+    
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      updateCarousel();
+    }
+    
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      updateCarousel();
+    }
+    
+    function goToSlide(index) {
+      currentSlide = index;
+      updateCarousel();
+    }
+    
+    // Auto-advance every 5 seconds
+    setInterval(nextSlide, 5000);
+  </script>
+</body>
+</html>

@@ -302,8 +302,18 @@
         <div id="driver-stats">Detailed driver stats will appear here.</div>
     </section>
     </a>
-    
-    <div class="carousel">
+
+    <!-- F1 Highlights Card -->
+    <a href="f1_highlights.html">
+    <section class="dashboard-card">
+        <img class="card-image" src="images/8hcnd76a7f3g1.jpeg" alt="F1 Highlights">
+        <h2>F1 HIGHLIGHTS</h2>
+        <p>Explore amazing F1 moments and fun facts!</p>
+    </section>
+    </a>
+
+    <!-- Old carousel removed - now in f1_highlights.html -->
+    <div class="carousel" style="display:none;">
             <!-- Duplicate card structure 12 times with different images/text -->
             <div class="card">
             <img src="images/8hcnd76a7f3g1.jpeg" alt="F1 Car" />
@@ -382,9 +392,14 @@
     <!-- Fan Posts Card -->
     <section class="dashboard-card">
     <h2>FAN POSTS</h2>
-    <textarea id="post-text" placeholder="Share your thoughts..."></textarea>
-    <button id="post-btn">Post</button>
-    <div id="posts-feed"></div>
+    <div id="post-login-notice" style="display:none; color: #ffd700; margin-bottom: 15px;">
+        <a href="account.html" style="color: #ffd700;">Login or Sign up</a> to share your thoughts!
+    </div>
+    <div id="post-form" style="display:none;">
+        <textarea id="post-text" placeholder="Share your thoughts..." style="width:100%; padding:10px; border-radius:8px; border:none; min-height:60px; margin-bottom:10px;"></textarea>
+        <button id="post-btn" style="background:#c30000; color:white; padding:10px 20px; border:none; border-radius:8px; cursor:pointer;">Post</button>
+    </div>
+    <div id="posts-feed" style="margin-top:20px;"></div>
     </section>
 
     <h2>Latest from Formula 1 Twitter</h2>
@@ -646,6 +661,95 @@
 
     // Initialize immediately since script runs after DOM is loaded
     initStandingsData();
+
+    // Fan Posts functionality
+    async function loadPosts() {
+        try {
+            const res = await fetch('/api/posts');
+            const posts = await res.json();
+            const feed = document.getElementById('posts-feed');
+            feed.innerHTML = '';
+            
+            if (posts.length === 0) {
+                feed.innerHTML = '<p style="color:#888;">No posts yet. Be the first to share!</p>';
+                return;
+            }
+            
+            posts.forEach(post => {
+                const postEl = document.createElement('div');
+                postEl.style.cssText = 'background:rgba(255,255,255,0.1); padding:15px; border-radius:8px; margin-bottom:10px; border-left:3px solid #c30000;';
+                postEl.innerHTML = `
+                    <p style="margin:0 0 8px 0;">${escapeHtml(post.content)}</p>
+                    <small style="color:#888;">Posted by <strong style="color:#ffd700;">${escapeHtml(post.user_email)}</strong></small>
+                `;
+                feed.appendChild(postEl);
+            });
+        } catch (err) {
+            console.error('Error loading posts:', err);
+        }
+    }
+    
+    function escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    function setupPostForm() {
+        const postBtn = document.getElementById('post-btn');
+        const postText = document.getElementById('post-text');
+        const postForm = document.getElementById('post-form');
+        const loginNotice = document.getElementById('post-login-notice');
+        
+        if (currentUser) {
+            postForm.style.display = 'block';
+            loginNotice.style.display = 'none';
+        } else {
+            postForm.style.display = 'none';
+            loginNotice.style.display = 'block';
+        }
+        
+        if (postBtn) {
+            postBtn.onclick = async () => {
+                const content = postText.value.trim();
+                if (!content) {
+                    alert('Please write something before posting!');
+                    return;
+                }
+                
+                try {
+                    const res = await fetch('/api/posts', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ 
+                            user_email: currentUser.username,
+                            content: content 
+                        })
+                    });
+                    
+                    if (res.ok) {
+                        postText.value = '';
+                        loadPosts();
+                    } else {
+                        alert('Failed to post. Please try again.');
+                    }
+                } catch (err) {
+                    alert('Error: ' + err.message);
+                }
+            };
+        }
+    }
+    
+    // Update checkLoginStatus to also setup posts
+    const originalCheckLogin = checkLoginStatus;
+    checkLoginStatus = async function() {
+        await originalCheckLogin();
+        setupPostForm();
+        loadPosts();
+    };
+    
+    // Load posts on page load
+    loadPosts();
 
 </script>
 </body>
