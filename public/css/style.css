@@ -137,6 +137,25 @@ main {
 #driver-stats {
     font-size: 16px;
     line-height: 1.5;
+    text-align: center;
+}
+
+.driver-stats-page section {
+    text-align: center;
+}
+
+.driver-stats-page section h2 {
+    text-align: center;
+}
+
+.driver-stats-page section ul {
+    list-style-position: inside;
+    text-align: center;
+    padding-left: 0;
+}
+
+.standings-table td.driver-name,
+.standings-table td.team-name {
     text-align: left;
 }
 
