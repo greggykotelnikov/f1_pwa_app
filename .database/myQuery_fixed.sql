@@ -52,6 +52,6 @@ CREATE TABLE IF NOT EXISTS users (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     username TEXT UNIQUE,
     password TEXT,
+    email TEXT UNIQUE NOT NULL,
     isAdmin INTEGER DEFAULT 0,
-    fantasyTeam TEXT DEFAULT '{}'
-);  
+);      
