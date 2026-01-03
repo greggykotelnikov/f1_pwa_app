@@ -42,9 +42,9 @@ app.use(session({
 
 // ---------- SIGNUP ----------
 app.post("/api/signup", async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
 
-    if (!username || !password)
+    if (!username || !password || !email) 
         return res.status(400).send("Missing fields");
 
     try {
@@ -56,7 +56,7 @@ app.post("/api/signup", async (req, res) => {
             function(err) {
                 if (err) {
                     if (err.code === "SQLITE_CONSTRAINT") {
-                        return res.status(400).send("User already exists");
+                        return res.status(400).send("User or email already exists");
                     }
                     return res.status(500).send("Database error");
                 }
@@ -72,13 +72,13 @@ app.post("/api/signup", async (req, res) => {
 
 // ---------- LOGIN ----------
 app.post("/api/login", async (req, res) => {
-    const { username, password } = req.body;
+    const { email, password } = req.body;  // use email instead of username
 
-    if (!username || !password)
+    if (!email || !password)
         return res.status(400).send("Missing fields");
 
     try {
-        db.get("SELECT * FROM users WHERE username = ?", [username], async (err, user) => {
+        db.get("SELECT * FROM users WHERE email = ?", [email], async (err, user) => {
             if (err) return res.status(500).send("Database error");
             if (!user) return res.status(400).send("Invalid credentials");
 
@@ -86,7 +86,7 @@ app.post("/api/login", async (req, res) => {
 
             if (match) {
                 req.session.userId = user.id;
-                res.redirect("/index.html");   // <-- redirect instead of JSON
+                res.redirect("/index.html");   // redirect only on successful login
             } else {
                 res.status(400).send("Invalid credentials");
             }
@@ -212,7 +212,6 @@ app.post("/api/posts", (req, res) => {
 });
 
 
-// ---------- START SERVER ----------
 app.listen(5000, "0.0.0.0", () =>
-    console.log("Server running on http://0.0.0.0:5000")
+    console.log("Server running on http://localhost:5000")
 );
