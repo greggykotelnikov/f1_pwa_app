@@ -4,8 +4,8 @@ A Formula 1 dashboard built as an installable Progressive Web App. Fans can
 browse driver and constructor standings, search, sort and filter the data,
 watch season highlights, and post on a community board after signing in.
 
-I built it in Year 11 (November 2025 to January 2026) as a school software
-assessment and one of my first full-stack projects.
+I built it starting from November 2025 to January 2026
+assessment and it was one of my first full-stack projects.
 
 ## Features
 
