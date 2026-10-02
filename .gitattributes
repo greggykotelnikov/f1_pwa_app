@@ -1,0 +1,3 @@
+# GitHub language stats: the pages are mostly markup, so leave HTML out of
+# the language bar and let the JavaScript (Express server and client) show.
+*.html linguist-detectable=false
